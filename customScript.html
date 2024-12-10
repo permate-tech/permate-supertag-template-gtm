@@ -1,0 +1,50 @@
+<script id="p-offer-script">
+    function pmReplaceUrl(cep, queryFilled, callback) {
+      // Replace url
+      var cepData =  {};
+      try {
+        if (cep) {
+          var cepDecode = atob(cep).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+          }).join('')
+          cepData = JSON.parse(decodeURIComponent(cepDecode).replace(/'/g, '"'))
+        }
+      } catch(e) {
+        cepData = {};
+      }
+      var urlParams = new URLSearchParams(window.location.search);
+      var isReplaceQuery = false;
+      urlParams.forEach(function(value, key) {
+        if ((value || '').match('{.+}|%7B.+%7D') && cepData[key]) {
+          isReplaceQuery = true;
+          urlParams.set(key, cepData[key]);
+        }
+      });
+      if (isReplaceQuery) {
+        callback(urlParams.toString());
+        window.history.replaceState({}, '', window.location.pathname + '?' + decodeURIComponent(urlParams.toString()));
+        return;
+      }
+      if (queryFilled) {
+        window.history.replaceState({}, '', window.location.href + (window.location.search ? '&' : '?')  + decodeURIComponent(queryFilled));
+      }
+    }
+  
+    function pmSendPixel(url, queryFilled, callback, queryCallback) {
+      fetch(url)
+        .then(function (result) {return result.text()})
+        .then(function(text) {
+          var cep = '';
+          var click_id = '';
+          var campaign = '';
+          var cepMatch = (text || '').match(/cep\s*:\s*"([^"]+)"/);
+          var clickIdMatch = (text || '').match(/click_id\s*:\s*"([^"]+)"/);
+          var campaignMatch = (text || '').match(/campaign\s*:\s*"([^"]+)"/);
+          if (cepMatch && cepMatch[1]) cep = cepMatch[1];
+          if (clickIdMatch && clickIdMatch[1]) click_id = clickIdMatch[1];
+          if (campaignMatch && campaignMatch[1]) campaign = campaignMatch[1];
+          var query = pmReplaceUrl(cep, queryFilled, queryCallback);
+          callback({cep: cep, click_id: click_id, campaign: campaign});
+        });
+    }
+  </script>
