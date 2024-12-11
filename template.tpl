@@ -46,7 +46,7 @@ const getReferrerUrl = require('getReferrerUrl');
 const encodeUriComponent = require('encodeUriComponent');
 const callInWindow = require('callInWindow');
 
-const SESSION_CLICK = 684000;
+const SESSION_CLICK = 86400;
 const TRACKING_DOMAIN = 'https://pmcloud1.com';
 const SCRIPT_URL = TRACKING_DOMAIN + '/get_url';
 const COOKIES_EXPIRES = 604800; // 7 days
@@ -63,6 +63,12 @@ function setPmOCookie(host, isSecure, data) {
     'domain': host,
     'path': '/',
     'max-age': COOKIES_0_EXPIRES,
+    'secure': isSecure
+  });
+  setCookie('pm_ss_o', '1', {
+    'domain': host,
+    'path': '/',
+    'max-age': SESSION_CLICK,
     'secure': isSecure
   });
 }
@@ -136,13 +142,6 @@ function processData() {
       }
     });
     return;
-  } else {
-    setCookie('pm_ss_o', '1', {
-      'domain': currentUrlObj.host,
-      'path': '/',
-      'max-age': SESSION_CLICK,
-      'secure': isSecure
-    });
   }
 
   let referrer = getReferrerUrl('queryParams');
