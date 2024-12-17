@@ -47,7 +47,7 @@ const encodeUriComponent = require('encodeUriComponent');
 const callInWindow = require('callInWindow');
 
 const SESSION_CLICK = 684000;
-const TRACKING_DOMAIN = 'https://pmcloud1.com';
+const TRACKING_DOMAIN = 'https://bk.pmcloud1.com';
 const SCRIPT_URL = TRACKING_DOMAIN + '/get_url';
 const COOKIES_EXPIRES = 604800; // 7 days
 const COOKIES_0_EXPIRES = 7776000; // 90 days
