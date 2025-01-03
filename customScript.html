@@ -19,6 +19,9 @@
           isReplaceQuery = true;
           urlParams.set(key, cepData[key]);
         }
+        if (key === 'pm_cid' || key === 'pm_click_id' || key === 'pm_offer_id' || key === 'promo_code') {
+          urlParams.delete(key);
+        }
       });
       if (isReplaceQuery) {
         callback(urlParams.toString());
