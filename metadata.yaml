@@ -1,5 +1,11 @@
 homepage: "https://permate.com"
 documentation: "https://github.com/permate-tech/permate-supertag-template-gtm"
 versions:
+  # Latest version 
+  - sha: d41fb21ca77686250dfe9378eed934e3b07e4b5d
+    changeNotes: |2
+      Update API domain
+      Fix offer issue
+  # Older versions
   - sha: a89b2508118999927acb22d792b066b048e727c8
     changeNotes: Initial release.
