@@ -1,76 +1,65 @@
 # Permate Brand SuperTag - Google Tag Manager
 
-SuperTag Template của Permate hỗ trợ chuẩn Google Tag template, là thư viện JavaScript chứa tất cả hàm/chức năng cần có cho giải pháp theo dõi của Permate. Permate SuperTag nên được đặt ở mọi trang cần theo dõi, ngoại trừ trang thank you/xác nhận thanh toán thành công. Trên trang thank you/xác nhận thanh toán thành công thì vui lòng lựa chọn tích hợp Permate Conversion Pixel Tag.
+The SuperTag Template by Permate supports the standard Google Tag template and is a JavaScript library containing all the functions/features necessary for Permate's tracking solution. The Permate SuperTag should be placed on every page that needs tracking, except for the thank you/payment confirmation page. On the thank you/payment confirmation page, please choose to integrate the [Permate Conversion Tag](https://github.com/permate-tech/permate-conversion-tag-template-gtm) instead.
 
-## Tổng quan tài liệu tích hợp
+## Integration Document Overview
 
 <ol>
-  <li>Nhập (Import) Permate SuperTag Template vào mẫu Google Tag Manager của bạn.</li>
-  <li>Cài đặt Permate SuperTag vào danh sách Tag của bạn.</li>
-  <li>Cài đặt Custom HTML.</li>
-  <li>Cấu hình nâng cao Permate SuperTag.</li>
+  <li>Install the Permate SuperTag into your Tag list.</li>
+  <li>Install Custom HTML.</li>
+  <li>Advanced configuration of the Permate SuperTag.</li>
 </ol>
 
-## 1. Nhập (Import) Permate SuperTag Template
+## 1. Install the Permate SuperTag
 
 <ol>
-  <li>Đăng nhập vào tài khoản Google Tag Manager của bạn, chọn Account/Container tương ứng, chọn vào <b>Templates/Mẫu</b> sau đó chọn <b>New/Mới</b>.</li>
-  <li>Click chọn vào dấu 3 chấm trên cùng bên phải, sau đó chọn <b>Import/Nhập</b>.</li>
-  <li>Bạn cần tải về file <a href="https://github.com/permate-tech/permate-supertag-template-gtm/blob/main/template.tpl"><b>template.tpl</b></a> sau đó nhập vào Template/Mẫu.</li>
-  <li>Chọn Save/Lưu</li>
+  <li>Log in to your Google Tag Manager account, select the corresponding Account/Container, then go to <b>Tags</b> and click on <b>New</b>.</li>
+  <li>Click on <b>Tag Configuration</b>.</li>
+  <li>Select the option <b>Discover more tag types in the Community Template Gallery</b>.</li>
 
-  ![GTM_Permate_Import_SuperTag](https://github.com/user-attachments/assets/1b6217a9-d5ba-4a47-83f7-4d05e3448765)
-  ![GTM_Permate_SuperTag_Template](https://github.com/user-attachments/assets/83785150-ad5d-4566-b7b4-440a0053ad73)
-</ol>
+  ![GTM_SuperTag_discover](https://github.com/user-attachments/assets/50283868-b229-4b76-96f7-d56e0f3285b3)
+  <li>Search for the phrase <b>"permate supertag"</b>, then add the Tag to your workspace.</li>
 
-## 2. Cài đặt Permate SuperTag
-
-<ol>
-  <li>Đăng nhập vào tài khoản Google Tag Manager của bạn, chọn Account/Container tương ứng, chọn vào <b>Tag/Thẻ</b> sau đó chọn <b>New/Mới</b>.</li>
-  <li>Chọn vào <b>Tag Configuration/Cấu Hình Thẻ</b>.</li>
-  <li>Tại mục <b>Custom/Tuỳ chỉnh</b> tìm <b>Permate SuperTag</b> của Permate. Nếu bạn không tìm thấy, hãy thực hiện Import ở bước 1.</li>
-
-  ![GTM_Permate_SuperTag_View](https://github.com/user-attachments/assets/1d49acdf-f4f5-476c-842c-2481ee750174)
-  <li>Thẻ này sẽ cần sử dụng Trigger kích hoạt tất cả sự kiện <b>DOM Ready/DOM Sẵn sàng</b></li>
+  ![GTM_SuperTag_search](https://github.com/user-attachments/assets/995b2549-a237-4c5e-8cd6-a0eac63e3941)
+  <li>This tag will need to use a Trigger that activates all <b>DOM Ready</b> events.</li>
   
   ![GooogleTagManager_Trigger](https://github.com/user-attachments/assets/0cb3bff8-9490-4eec-b161-7637714b684c)
-  <li>Đặt tên cho thẻ của bạn và mọi thứ đã hoàn thành.</li>
+  <li>Name your tag, and everything is complete.</li>
 </ol>
 
-## 3. Cài đặt Custom HTML
+## 2. Install Custom HTML
 
 <ol>
-  <li>Đăng nhập vào tài khoản Google Tag Manager của bạn, chọn Account/Container tương ứng, chọn vào <b>Tag/Thẻ</b> sau đó chọn <b>New/Mới</b>.</li>
-  <li>Chọn vào <b>Tag Configuration/Cấu Hình Thẻ</b>.</li>
-  <li>Tại mục <b>Custom/Tuỳ chỉnh</b>, chọn vào <b>Custom HTML/HTML Tuỳ chỉnh</b>.</li>
+  <li>Log in to your Google Tag Manager account, select the corresponding Account/Container, then go to <b>Tags</b> and click on <b>New</b>.</li>
+  <li>Click on <b>Tag Configuration</b>.</li>
+  <li>Under the <b>Custom</b> section, select <b>Custom HTML</b>.</li>
 
   ![GTM_CustomHTML_View](https://github.com/user-attachments/assets/e085a442-ab8f-4925-91c8-2daa39218c7b)
-  <li>Tại mục <b>HTML</b>, bạn cần điền đoạn mã Javascript trong file <a href="https://github.com/permate-tech/permate-supertag-template-gtm/blob/main/customScript.html"><b>customScript.html</b></a> vào đây</li>
+  <li>In the <b>HTML</b> section, you need to insert the JavaScript code from the file <a href="https://github.com/permate-tech/permate-supertag-template-gtm/blob/main/customScript.html"><b>customScript.html</b></a> here.</li>
 
   ![GTM_CustomHTML_Value](https://github.com/user-attachments/assets/ea7faeaf-45a5-411c-94e6-68753d12746e)
-  <li>Thẻ này sẽ cần sử dụng Trigger kích hoạt tất cả sự kiện <b>DOM Ready/DOM Sẵn sàng</b> giống với <b>Permate SuperTag</b>.</li>
+  <li>This tag will need to use a Trigger that activates all <b>DOM Ready</b> events, similar to the <b>Permate SuperTag</b>.</li>
   
   ![GooogleTagManager_Trigger](https://github.com/user-attachments/assets/0cb3bff8-9490-4eec-b161-7637714b684c)
-  <li>Đặt tên cho thẻ của bạn và mọi thứ đã hoàn thành.</li>
+  <li>Name your tag, and everything is complete.</li>
 </ol>
 
-## 4. Cấu hình nâng cao cho thẻ
-
+## 3. Advanced Configuration for the Tag
+  
 <ol>
-  <li>Đăng nhập vào tài khoản Google Tag Manager của bạn, chọn Account/Container tương ứng, chọn vào <b>Tag/Thẻ</b> sau đó chọn thẻ <b>Permate SuperTag</b> vừa mới tạo ở bước 2.</li>
-  <li>Chọn vào <b>Advanced Settings/Cài Đặt Nâng Cao</b>.</li>
-  <li>Tại mục <b>Tag firing priority</b>: Bạn cần điền giá trị lớn hơn giá trị của <b>Permate Button Tag</b> (nếu có).</li>
+  <li>Log in to your Google Tag Manager account, select the corresponding Account/Container, go to <b>Tags</b>, then select the <b>Permate SuperTag</b> that was created in step 1.</li>
+  <li>Click on <b>Advanced Settings</b>.</li>
+  <li>In the <b>Tag firing priority</b> section: You need to enter a value greater than the value of the <b>Permate Button Tag</b> (if it exists).</li>
 
   ![GTM_Permate_SuperTag_Priority](https://github.com/user-attachments/assets/a1d452c2-3e95-4071-99f6-ae12930db198)
-
-  <li>Chọn <b>Save/Lưu</b></li>
-  <li>Chọn thẻ <b>Custom HTML/HTML Tuỳ chỉnh</b> vừa mới tạo ở bước 3.</li>
-  <li>Chọn vào <b>Advanced Settings/Cài Đặt Nâng Cao</b>.</li>
-  <li>Tại mục <b>Tag firing priority</b>: Bạn cần điền giá trị lớn hơn giá trị Tag firing priority của <b>Permate SuperTag</b>.</li>
+  <li>Click <b>Save</b>.</li>
+  <li>Select the <b>Custom HTML</b> tag that was just created in step 2.</li>
+  <li>Click on <b>Advanced Settings</b>.</li>
+  <li>In the <b>Tag firing priority</b> section: You need to enter a value greater than the Tag firing priority value of the <b>Permate SuperTag</b>.</li>
 
   ![GTM_Permate_CustomHTML_Priority](https://github.com/user-attachments/assets/142cd081-6fa5-4071-ad46-5c23ebe44e35)
-  <li>Chọn <b>Save/Lưu</b> và mọi thứ đã hoàn thành.</li>
+  <li>Click <b>Save</b>, and everything is complete.</li>
 </ol>
 
-## Tìm hiểu chi tiết hơn về Permate SuperTag
-#### :arrow_right: Ghé thăm tại đây [Trung Tâm Trợ Giúp](https://permate.com/docs-category/brand-en/)
+## Learn more details about Permate SuperTag
+#### :arrow_right: Visit here [Help Center](https://permate.com/docs-category/brand-en/)
