@@ -19,6 +19,10 @@
           isReplaceQuery = true;
           urlParams.set(key, cepData[key]);
         }
+        if (value === '{click_offer_id}' || value === '%7Bclick_offer_id%7D') {
+          isReplaceQuery = true;
+          urlParams.set(key, cepData['pm_click_id'] + '_a_' + cepData['pm_offer_id']);
+        }
         if (key === 'pm_cid' || key === 'pm_click_id' || key === 'pm_offer_id' || key === 'promo_code') {
           urlParams.delete(key);
         }
