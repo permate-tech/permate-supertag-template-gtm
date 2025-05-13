@@ -48,21 +48,20 @@ const callInWindow = require('callInWindow');
 
 const SESSION_CLICK = 86400;
 const TRACKING_DOMAIN = 'https://bk.pmcloud1.com';
+const TRACKING_CDN = 'https://pmcdn1.com';
 const SCRIPT_URL = TRACKING_DOMAIN + '/get_url';
-const COOKIES_EXPIRES = 604800; // 7 days
-const COOKIES_0_EXPIRES = 7776000; // 90 days
 
-function setPmOCookie(host, isSecure, data) {
+function setPmOCookie(host, isSecure, data, cpId, clId, currentUrlObj) {
   setCookie('pm_cep_o', data.cep, {
     'domain': host,
     'path': '/',
-    'max-age': COOKIES_0_EXPIRES,
+    'max-age': data.cookies_expires,
     'secure': isSecure
   });
   setCookie('pm_click', JSON.stringify({campaign: data.campaign, click: data.click_id}), {
     'domain': host,
     'path': '/',
-    'max-age': COOKIES_0_EXPIRES,
+    'max-age': data.cookies_expires,
     'secure': isSecure
   });
   setCookie('pm_ss_o', '1', {
@@ -71,13 +70,30 @@ function setPmOCookie(host, isSecure, data) {
     'max-age': SESSION_CLICK,
     'secure': isSecure
   });
+  if (cpId) {
+    if (clId) {
+      setCookie('p-' + cpId + clId, '1', {
+        'domain': currentUrlObj.host,
+        'path': '/',
+        'max-age': data.cookies_expires,
+        'secure': isSecure
+      });
+    } else {
+      setCookie('p-' + cpId, '1', {
+        'domain': currentUrlObj.host,
+        'path': '/',
+        'max-age': data.cookies_expires,
+        'secure': isSecure
+      });
+    }
+  }
 }
 
-function setFillParamsCookie(host, isSecure, fillParams) {
+function setFillParamsCookie(host, isSecure, fillParams, cookies_expires) {
   setCookie('pm_q', fillParams, {
     'domain': host,
     'path': '/',
-    'max-age': COOKIES_EXPIRES,
+    'max-age': cookies_expires,
     'secure': isSecure
   });
 }
@@ -121,7 +137,7 @@ function processData() {
   // Get cep
   let cep = getCookieValues('pm_cep_o')[0];
   if (cep && (!cpId || clId)) {
-    currentUrl = currentUrlObj.origin + currentUrlObj.pathname + '?pm_cep=' + cep;
+    currentUrl += currentUrlObj.origin + currentUrlObj.pathname + '?pm_cep=' + cep;
     pId = cep;
   } else if (cookieClickId) {
     var delimiter = currentUrl.indexOf('?') > -1 ? '&' : '?';
@@ -135,48 +151,26 @@ function processData() {
   var sscMatch = getCookieValues('pm_ss_o')[0];
   if (pId && sscMatch) {
     var fillParams = getCookieValues('pm_q')[0];
-    callInWindow('pmReplaceUrl', cep, fillParams, (data) => {
-      if (data) {
-        setFillParamsCookie(currentUrlObj.host, isSecure, data);
-      }
-    });
+    callInWindow('pmReplaceUrl', cep, fillParams);
     return;
   }
 
   let referrer = getReferrerUrl('queryParams');
-  let cdnScript = SCRIPT_URL + '?ref=' + encodeUriComponent(referrer) + '&location=o&url=' + encodeUriComponent(currentUrl) + '&time=' + getTimestampMillis();
+  let getDataUrl = SCRIPT_URL + '?ref=' + encodeUriComponent(referrer) + '&location=o&url=' + encodeUriComponent(currentUrl) + '&time=' + getTimestampMillis();
   if (pId) {
-    cdnScript += '&cid=no';
+    getDataUrl += '&cid=no';
   }
 
   var fillParamData = getCookieValues('pm_q')[0];
-  callInWindow('pmSendPixel', cdnScript, fillParamData, (data) => {
+  callInWindow('pmSendPixel', getDataUrl, TRACKING_CDN, fillParamData, (data) => {
     if (data) {
-      setPmOCookie(currentUrlObj.host, isSecure, data);
+      setPmOCookie(currentUrlObj.host, isSecure, data, cpId, clId, currentUrlObj);
     }
-  }, (data) => {
+  }, (data, cookies_expires) => {
     if (data) {
-      setFillParamsCookie(currentUrlObj.host, isSecure, data);
+      setFillParamsCookie(currentUrlObj.host, isSecure, data, cookies_expires);
     }
   });
-
-  if (cpId) {
-    if (clId) {
-      setCookie('p-' + cpId + clId, '1', {
-        'domain': currentUrlObj.host,
-        'path': '/',
-        'max-age': COOKIES_EXPIRES,
-        'secure': isSecure
-      });
-    } else {
-      setCookie('p-' + cpId, '1', {
-        'domain': currentUrlObj.host,
-        'path': '/',
-        'max-age': COOKIES_EXPIRES,
-        'secure': isSecure
-      });
-    }
-  }
 }
 
 processData();
