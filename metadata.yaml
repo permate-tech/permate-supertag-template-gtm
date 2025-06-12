@@ -2,10 +2,13 @@ homepage: "https://permate.com"
 documentation: "https://github.com/permate-tech/permate-supertag-template-gtm"
 versions:
   # Latest version 
+  - sha: 415aa77a8f424d56fa4a9517726afb2419bf7de4
+    changeNotes: |1
+      Fixed something
+  # Older versions
   - sha: 014de2fd1dd93f7c6eea26bf235915bc6bc3714d
     changeNotes: |1
       Enhance latest tracking solution, customer journey
-  # Older versions
   - sha: 7f9703edee3523fdc5f4fb5b4f2404558849955e
     changeNotes: |1
       Update Custom HTML Tag
