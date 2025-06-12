@@ -2,7 +2,7 @@ homepage: "https://permate.com"
 documentation: "https://github.com/permate-tech/permate-supertag-template-gtm"
 versions:
   # Latest version 
-  - sha: 415aa77a8f424d56fa4a9517726afb2419bf7de4
+  - sha: 487324d5156e3dca6f92cd1978941b6f05032a5e
     changeNotes: |1
       Fixed something
   # Older versions
