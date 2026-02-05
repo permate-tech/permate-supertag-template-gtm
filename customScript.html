@@ -14,6 +14,7 @@
       }
       var urlParams = new URLSearchParams(window.location.search);
       var isReplaceQuery = false;
+      var checkReplaceFromCookie = true;
       urlParams.forEach(function(value, key) {
         if ((value || '').match('{.+}|%7B.+%7D') && cepData[key]) {
           isReplaceQuery = true;
@@ -24,14 +25,14 @@
           urlParams.set(key, cepData['pm_click_id'] + '_a_' + cepData['pm_offer_id']);
         }
         if (key === 'pm_cid' || key === 'pm_click_id' || key === 'pm_offer_id' || key === 'promo_code') {
-          urlParams.delete(key);
+          checkReplaceFromCookie = false;
         }
       });
       if (isReplaceQuery) {
         window.history.replaceState({}, '', window.location.pathname + '?' + decodeURIComponent(urlParams.toString()));
         return urlParams.toString();
       }
-      if (queryFilled) {
+      if (queryFilled && checkReplaceFromCookie) {
         window.history.replaceState({}, '', window.location.href + (window.location.search ? '&' : '?')  + decodeURIComponent(queryFilled));
       }
       return;
